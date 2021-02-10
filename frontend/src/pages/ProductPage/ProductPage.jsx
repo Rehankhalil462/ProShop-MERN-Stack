@@ -18,7 +18,7 @@ const ShopPage = ({ match }) => {
       }
     };
     fetchProduct();
-  }, []);
+  }, [match]);
 
   return (
     <>
