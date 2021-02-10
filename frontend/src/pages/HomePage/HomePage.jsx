@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../../components/product/Product.component';
-import products from '../../products';
+import axios from 'axios';
+import swal from 'sweetalert2';
 
 const HomePage = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products');
+      if (data) {
+        setProducts(data);
+      } else {
+        swal.fire('Oops', 'Something is wrong', 'error');
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <h1>Latest Products</h1>

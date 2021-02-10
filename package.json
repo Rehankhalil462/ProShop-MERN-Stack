@@ -1,0 +1,15 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "MERN Ecommerce App",
+  "main": "server.js",
+  "repository": "https://github.com/Rehankhalil462/ProShop-MERN-Stack.git",
+  "author": "Rehan Khalil",
+  "license": "MIT",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

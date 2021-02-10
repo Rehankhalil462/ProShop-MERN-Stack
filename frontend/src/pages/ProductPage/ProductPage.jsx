@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../../components/rating/Rating.component';
-import products from '../../products';
 
 const ShopPage = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`);
+      if (data) {
+        setProduct(data);
+      } else {
+        swal.fire('Oops', 'Something is wrong', 'error');
+      }
+    };
+    fetchProduct();
+  }, []);
+
   return (
     <>
       <Link className='btn btn-dark my-3' to='/'>
