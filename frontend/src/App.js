@@ -4,6 +4,7 @@ import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
 import HomePage from './pages/HomePage/HomePage';
 import ProductPage from './pages/ProductPage/ProductPage';
+import CartPage from './pages/CartPage/CartPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
         <Container>
           <Route exact path='/' component={HomePage} />
           <Route path='/product/:id' component={ProductPage} />
+          <Route path='/cart/:id?' component={CartPage} />
         </Container>
       </main>
       <Footer />

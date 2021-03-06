@@ -1,21 +1,12 @@
 import React from 'react';
-import ErrorLogo from './undraw_server_down_s4lk.svg';
+import { Alert } from 'react-bootstrap';
 
-const ErrorMessage = () => {
-  return (
-    <div>
-      <img
-        src={ErrorLogo}
-        alt='Error...'
-        style={{
-          height: '300px',
-          width: '300px',
+const ErrorMessage = ({ variant, children }) => {
+  return <Alert variant={variant}>{children}</Alert>;
+};
 
-          margin: 'auto',
-        }}
-      ></img>
-    </div>
-  );
+ErrorMessage.defaultProps = {
+  variant: 'info',
 };
 
 export default ErrorMessage;
