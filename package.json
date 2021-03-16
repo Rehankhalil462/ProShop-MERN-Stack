@@ -21,7 +21,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "mongoose": "^5.11.15"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.15",
+    "sweetalert2": "^10.15.5"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
