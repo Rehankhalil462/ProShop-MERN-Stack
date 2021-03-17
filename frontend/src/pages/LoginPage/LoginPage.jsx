@@ -5,10 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/loader';
 import { login } from '../../redux/reducers/user/user.actions';
-import Login from './Login.png';
+import Login from './NewLogin.png';
 import Swal from 'sweetalert2';
 
+import VisibilityOffRoundedIcon from '@material-ui/icons/VisibilityOffRounded';
+import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
+
 const LoginPage = ({ location, history }) => {
+  const [type, setType] = useState('password');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -25,7 +29,7 @@ const LoginPage = ({ location, history }) => {
         icon: 'success',
         title: 'Logged In Successfully!',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
       history.push(redirect);
     }
@@ -38,9 +42,28 @@ const LoginPage = ({ location, history }) => {
     dispatch(login(email, password));
   };
 
+  const toggleHiddenPassword = (e) => {
+    e.preventDefault();
+    setType('text');
+  };
+  const toggleShowPassword = (e) => {
+    e.preventDefault();
+
+    setType('password');
+  };
+
   return (
     <Container>
       <Row className='justify-content-md-center'>
+        <Col md={6}>
+          <Image
+            src={Login}
+            alt='Sign In Logo'
+            fluid
+            className='hidden-xs'
+            style={{ border: 'none' }}
+          ></Image>
+        </Col>
         <Col xs={12} md={6}>
           <h1>Sign In</h1>
           {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
@@ -60,12 +83,33 @@ const LoginPage = ({ location, history }) => {
 
               <Form.Group controlId='password'>
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type='password'
-                  value={password}
-                  placeholder='Enter Password'
-                  onChange={(e) => setPassword(e.target.value)}
-                ></Form.Control>
+                <Row>
+                  <Col xs={9}>
+                    <Form.Control
+                      type={type}
+                      value={password}
+                      placeholder='Enter Password'
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Col>
+                  <Col>
+                    {type === 'password' ? (
+                      <button
+                        onClick={toggleHiddenPassword}
+                        style={{ border: 'none' }}
+                      >
+                        <VisibilityRoundedIcon />
+                      </button>
+                    ) : (
+                      <button
+                        style={{ border: 'none' }}
+                        onClick={toggleShowPassword}
+                      >
+                        <VisibilityOffRoundedIcon />
+                      </button>
+                    )}
+                  </Col>
+                </Row>
               </Form.Group>
               <Button type='submit' variant='primary'>
                 Sign In
@@ -83,15 +127,6 @@ const LoginPage = ({ location, history }) => {
               </Link>
             </Col>
           </Row>
-        </Col>
-        <Col md={6} className='d-none d-sm-block'>
-          <Image
-            src={Login}
-            alt='Sign In Logo'
-            fluid
-            className='hidden-xs'
-            style={{ border: 'none' }}
-          ></Image>
         </Col>
       </Row>
     </Container>
