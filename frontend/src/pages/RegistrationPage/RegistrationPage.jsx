@@ -4,21 +4,25 @@ import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/loader';
-import { login } from '../../redux/reducers/user/user.actions';
-import Login from './NewLogin.png';
+import { register } from '../../redux/reducers/user/user.actions';
+import Registration from './Registration.png';
 import Swal from 'sweetalert2';
 
 import VisibilityOffRoundedIcon from '@material-ui/icons/VisibilityOffRounded';
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
 
-const LoginPage = ({ location, history }) => {
+const RegistrationPage = ({ location, history }) => {
+  const [name, setName] = useState('');
+
   const [type, setType] = useState('password');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState(null);
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
+  const userRegister = useSelector((state) => state.userRegister);
 
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error, userInfo } = userRegister;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -27,7 +31,7 @@ const LoginPage = ({ location, history }) => {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Logged In Successfully!',
+        title: 'Registered Successfully!',
         showConfirmButton: false,
         timer: 2000,
       });
@@ -37,9 +41,13 @@ const LoginPage = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match!');
+    } else {
+      setMessage(null);
+      dispatch(register(name, email, password));
+    }
     // Dispatch Login
-    dispatch(login(email, password));
   };
 
   const toggleHiddenPassword = (e) => {
@@ -57,19 +65,32 @@ const LoginPage = ({ location, history }) => {
       <Row className='justify-content-md-center'>
         <Col md={6}>
           <Image
-            src={Login}
-            alt='Sign In Logo'
+            src={Registration}
+            alt='Registration Logo'
             fluid
             style={{ border: 'none' }}
           ></Image>
         </Col>
         <Col xs={12} md={6}>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
+          {message && <ErrorMessage variant='danger'>{message}</ErrorMessage>}
+
           {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+
           {loading ? (
             <Loader />
           ) : (
             <Form onSubmit={submitHandler}>
+              <Form.Group controlId='name'>
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type='name'
+                  value={name}
+                  placeholder='Enter Your Name'
+                  onChange={(e) => setName(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+
               <Form.Group controlId='email'>
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control
@@ -89,6 +110,19 @@ const LoginPage = ({ location, history }) => {
                       value={password}
                       placeholder='Enter Password'
                       onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+              </Form.Group>
+              <Form.Group controlId='confirmPassword'>
+                <Form.Label>Confirm Password</Form.Label>
+                <Row>
+                  <Col xs={9}>
+                    <Form.Control
+                      type={type}
+                      value={confirmPassword}
+                      placeholder='Confirm Password'
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </Col>
                   <Col>
@@ -111,18 +145,15 @@ const LoginPage = ({ location, history }) => {
                 </Row>
               </Form.Group>
               <Button type='submit' variant='primary'>
-                Sign In
+                Register
               </Button>
             </Form>
           )}
-
           <Row className='py-3'>
             <Col>
-              New Customer ?{' '}
-              <Link
-                to={redirect ? `/register?redirect=${redirect}` : '/register'}
-              >
-                Register
+              Have an Account ?{' '}
+              <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                Sign In
               </Link>
             </Col>
           </Row>
@@ -132,4 +163,4 @@ const LoginPage = ({ location, history }) => {
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

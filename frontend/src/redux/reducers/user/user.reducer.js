@@ -28,3 +28,27 @@ export const userLoginReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const userRegisterReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case UserActionTypes.USER_REGISTER_REQUEST:
+      return {
+        loading: true,
+      };
+    case UserActionTypes.USER_REGISTER_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
+    case UserActionTypes.USER_REGISTER_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case UserActionTypes.USER_LOGOUT:
+      return {};
+
+    default:
+      return state;
+  }
+};
