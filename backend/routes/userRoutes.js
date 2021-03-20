@@ -6,13 +6,15 @@ import {
   authUser,
   getUserProfile,
   registerUser,
+  updateUserProfile,
 } from '../controllers/userController.js';
 
-// router.get('/',getProducts);
+router.route('/').post(registerUser);
+router
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile);
+
 router.post('/login', authUser);
 
-// // router.get('/:id', getProductById);
-router.route('/profile').get(protect, getUserProfile);
-
-router.route('/').post(registerUser);
 export default router;

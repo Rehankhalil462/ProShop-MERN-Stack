@@ -10,4 +10,5 @@ router.route('/').get(getProducts);
 
 // router.get('/:id', getProductById);
 router.route('/:id').get(getProductById);
+
 export default router;
