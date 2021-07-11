@@ -9,6 +9,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import ShippingPage from './pages/ShippingPage/ShippingPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
+import PlaceOrderPage from './pages/PlaceOrderPage/PlaceOrderPage';
 
 const App = () => {
   return (
@@ -21,7 +24,10 @@ const App = () => {
           <Route path='/cart/:id?' component={CartPage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegistrationPage} />
+          <Route path='/shipping' component={ShippingPage} />
           <Route path='/profile' component={ProfilePage} />
+          <Route path='/payment' component={PaymentPage} />
+          <Route path='/placeorder' component={PlaceOrderPage} />
         </Container>
       </main>
       <Footer />

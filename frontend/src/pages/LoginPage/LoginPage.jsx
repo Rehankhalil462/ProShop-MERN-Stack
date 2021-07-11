@@ -6,7 +6,6 @@ import ErrorMessage from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/loader';
 import { login } from '../../redux/reducers/user/user.actions';
 import Login from './NewLogin.png';
-import Swal from 'sweetalert2';
 
 import VisibilityOffRoundedIcon from '@material-ui/icons/VisibilityOffRounded';
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
@@ -24,13 +23,6 @@ const LoginPage = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Logged In Successfully!',
-        showConfirmButton: false,
-        timer: 2000,
-      });
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);
