@@ -3,7 +3,6 @@ import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Payment from './Payment.png';
 import { savePaymentMethod } from '../../redux/reducers/cart/cart.actions';
-import Swal from 'sweetalert2';
 import CheckoutSteps from '../../components/checkoutsteps/CheckoutSteps';
 
 const PaymentPage = ({ history }) => {
