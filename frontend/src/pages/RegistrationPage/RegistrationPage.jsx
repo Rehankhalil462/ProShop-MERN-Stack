@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/errormessage/errormessage';
-import Loader from '../../components/loader/loader';
+import Loader from '../../components/loader/Loader';
 import { register } from '../../redux/reducers/user/user.actions';
 import Registration from './Registration.png';
 import Swal from 'sweetalert2';

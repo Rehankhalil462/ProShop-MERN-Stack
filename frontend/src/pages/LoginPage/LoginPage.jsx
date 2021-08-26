@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/errormessage/errormessage';
-import Loader from '../../components/loader/loader';
+import Loader from '../../components/loader/Loader';
 import { login } from '../../redux/reducers/user/user.actions';
 import Login from './NewLogin.png';
 
@@ -83,7 +83,7 @@ const LoginPage = ({ location, history }) => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Col>
-                  <Col>
+                  <Col className='d-flex'>
                     {type === 'password' ? (
                       <button
                         onClick={toggleHiddenPassword}

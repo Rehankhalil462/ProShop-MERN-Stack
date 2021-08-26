@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Product from '../../components/product/Product.component';
 import { listProducts } from '../../redux/reducers/product/product.actions';
 import ErrorMessage from '../../components/errormessage/errormessage';
-import Loader from '../../components/loader/loader';
+import Loader from '../../components/loader/Loader';
 
 const HomePage = () => {
   const dispatch = useDispatch();

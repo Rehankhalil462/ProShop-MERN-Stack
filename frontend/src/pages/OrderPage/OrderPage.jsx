@@ -6,11 +6,11 @@ import {
   getOrderDetails,
   payOrder,
 } from '../../redux/reducers/order/order.actions';
-import { ListGroup, Card, Button, Row, Col, Image } from 'react-bootstrap';
+import { ListGroup, Card, Row, Col, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/Loader';
-import OrderActionTypes from '../../redux/reducers/order/order.types';
+import { OrderActionTypes } from '../../redux/reducers/order/order.types';
 
 const OrderPage = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false);

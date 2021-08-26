@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 import Rating from '../../components/rating/Rating.component';
 import ErrorPhoto from '../../components/errormessage/errorphoto';
-import Loader from '../../components/loader/loader';
+import Loader from '../../components/loader/Loader';
 import { productDetails } from '../../redux/reducers/productdetails/productdetails.actions';
 
 const ShopPage = ({ history, match }) => {
