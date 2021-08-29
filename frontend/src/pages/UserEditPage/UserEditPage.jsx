@@ -4,7 +4,11 @@ import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/Loader';
-import { getUserDetails } from '../../redux/reducers/user/user.actions';
+import {
+  getUserDetails,
+  updateUser,
+} from '../../redux/reducers/user/user.actions';
+import UserActionTypes from '../../redux/reducers/user/user.types';
 import Swal from 'sweetalert2';
 import Registration from '../RegistrationPage/Registration.png';
 
@@ -16,22 +20,42 @@ const UserEditPage = ({ match, history }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.userDetails);
 
+  const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = userUpdate;
+
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
-      dispatch(getUserDetails(userId));
+    if (successUpdate) {
+      dispatch({ type: UserActionTypes.USER_UPDATE_RESET });
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Updated Successfully!',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      history.push('/admin/userlist');
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+      if (!user.name || user._id !== userId) {
+        dispatch(getUserDetails(userId));
+      } else {
+        setName(user.name);
+        setEmail(user.email);
+        setIsAdmin(user.isAdmin);
+      }
     }
-  }, [user, dispatch, userId, history]);
+  }, [user, dispatch, userId, history, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
 
   return (
@@ -51,6 +75,10 @@ const UserEditPage = ({ match, history }) => {
           </Col>
           <Col xs={12} md={6}>
             <h1>Edit User</h1>
+            {loadingUpdate && <Loader />}
+            {errorUpdate && (
+              <ErrorMessage variant='danger'> {errorUpdate}</ErrorMessage>
+            )}
             {loading ? (
               <Loader />
             ) : error ? (

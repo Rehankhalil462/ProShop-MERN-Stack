@@ -222,3 +222,36 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateUser = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    // console.log('this is users token', userInfo.token);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+    dispatch({
+      type: UserActionTypes.USER_UPDATE_SUCCESS,
+    });
+    dispatch({ type: UserActionTypes.USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.USER_UPDATE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
