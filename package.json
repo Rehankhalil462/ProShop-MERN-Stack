@@ -1,5 +1,5 @@
 {
-  "name": "proshop",
+  "name": "rehanshop",
   "version": "1.0.0",
   "description": "MERN Ecommerce App",
   "main": "server.js",
@@ -13,7 +13,8 @@
     "client": "cd frontend && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix  frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
