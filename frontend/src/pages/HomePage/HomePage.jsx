@@ -5,45 +5,57 @@ import Product from '../../components/product/Product.component';
 import { listProducts } from '../../redux/reducers/product/product.actions';
 import ErrorMessage from '../../components/errormessage/errormessage';
 import Loader from '../../components/loader/Loader';
+import { Link } from 'react-router-dom';
 
-const HomePage = () => {
+import Paginate from '../../components/Paginate/Paginate';
+import ProductCarousel from '../../components/ProductCarousal/ProductCarousal';
+import Meta from '../../components/Meta/Meta';
+
+const HomePage = ({ match }) => {
+  const keyword = match.params.keyword;
+
+  const pageNumber = match.params.pageNumber || 1;
+
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { loading, products, error, page, pages } = productList;
+  console.log(products);
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
-
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const { data } = await axios.get('/api/products');
-  //     if (data) {
-  //       setProducts(data);
-  //     } else {
-  //       swal.fire('Oops', 'Something is wrong', 'error');
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, []);
+    dispatch(listProducts(keyword, pageNumber));
+    console.log('triggered 1ne time');
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <>
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorMessage />
+        <ErrorMessage variant='danger'>{error}</ErrorMessage>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
       )}
     </>
   );

@@ -1,11 +1,20 @@
 import { combineReducers } from 'redux';
-import { productListReducer } from './reducers/product/product.reducer';
+import {
+  productCreateReducer,
+  productDeleteReducer,
+  productListReducer,
+  productReviewCreateReducer,
+  productTopRatedReducer,
+  productUpdateReducer,
+} from './reducers/product/product.reducer';
 import { productDetailsReducer } from './reducers/productdetails/productdetails.reducer';
 import { cartReducer } from './reducers/cart/cart.reducer';
 import {
   orderCreateReducer,
+  orderDeliverReducer,
   orderDetailsReducer,
   orderListMyReducer,
+  orderListReducer,
   orderPayReducer,
 } from './reducers/order/order.reducer';
 import {
@@ -21,6 +30,11 @@ import {
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetail: productDetailsReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productReviewCreate: productReviewCreateReducer,
+  productTopRated: productTopRatedReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -29,7 +43,9 @@ const rootReducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,

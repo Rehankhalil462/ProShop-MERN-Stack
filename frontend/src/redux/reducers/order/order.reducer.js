@@ -103,3 +103,49 @@ export const orderListMyReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export const orderListReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case OrderActionTypes.ORDER_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case OrderActionTypes.ORDER_LIST_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+    case OrderActionTypes.ORDER_LIST_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const orderDeliverReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case OrderActionTypes.ORDER_DELIVER_REQUEST:
+      return {
+        loading: true,
+      };
+    case OrderActionTypes.ORDER_DELIVER_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case OrderActionTypes.ORDER_DELIVER_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case OrderActionTypes.ORDER_DELIVER_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};

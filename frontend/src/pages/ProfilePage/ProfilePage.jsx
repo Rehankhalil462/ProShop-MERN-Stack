@@ -132,7 +132,7 @@ const ProfilePage = ({ history }) => {
                 <th>DATE</th>
                 <th>TOTAl</th>
                 <th>PAID</th>
-                <th>DELIEVERED</th>
+                <th>DELIVERED</th>
                 <th></th>
               </tr>
             </thead>
@@ -150,8 +150,8 @@ const ProfilePage = ({ history }) => {
                     )}
                   </td>
                   <td>
-                    {order.isDelievered ? (
-                      order.delieveredAt.substring(0, 10)
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
                     ) : (
                       <i className='fas fa-times' style={{ color: 'red' }}></i>
                     )}

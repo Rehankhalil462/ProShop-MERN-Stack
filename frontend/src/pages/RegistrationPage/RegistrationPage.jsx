@@ -43,7 +43,6 @@ const RegistrationPage = ({ location, history }) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage('Passwords do not match!');
-      dispatch(register(name, email, password));
     } else {
       dispatch(register(name, email, password));
       setMessage(null);
