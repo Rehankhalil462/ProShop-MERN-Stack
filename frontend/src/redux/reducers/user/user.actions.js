@@ -1,6 +1,7 @@
 import UserActionTypes from './user.types';
 import axios from 'axios';
 import { ORDER_LIST_MY_RESET } from '../order/order.types';
+import CartActionTypes from '../cart/cart.types';
 // login user actions
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -42,6 +43,7 @@ export const logout = () => (dispatch) => {
   });
   dispatch({ type: UserActionTypes.USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
+  dispatch({ type: CartActionTypes.CART_ITEMS_RESET });
   dispatch({ type: UserActionTypes.USER_LIST_RESET });
 };
 
