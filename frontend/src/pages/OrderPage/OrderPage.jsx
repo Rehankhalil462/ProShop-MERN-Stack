@@ -204,7 +204,7 @@ const OrderPage = ({ history, match }) => {
                 </ListGroup.Item>
               )}
               {loadingDeliver && <Loader />}
-              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+              {userInfo && order.isPaid && !order.isDelivered && (
                 <ListGroup.Item>
                   <Button
                     type='button'

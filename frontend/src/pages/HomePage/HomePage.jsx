@@ -19,11 +19,9 @@ const HomePage = ({ match }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error, page, pages } = productList;
-  console.log(products);
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
-    console.log('triggered 1ne time');
   }, [dispatch, keyword, pageNumber]);
 
   return (

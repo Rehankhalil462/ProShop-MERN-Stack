@@ -7,6 +7,7 @@ export const productDetails = (id) => async (dispatch) => {
       type: ProductDetailsTypes.PRODUCT_DETAILS_REQUEST,
     });
     const { data } = await axios.get(`/api/products/${id}`);
+
     dispatch({
       type: ProductDetailsTypes.PRODUCT_DETAILS_SUCCESS,
       payload: data,
