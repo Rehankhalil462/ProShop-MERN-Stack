@@ -12,7 +12,6 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../../components/rating/Rating.component';
-import ErrorPhoto from '../../components/errormessage/errorphoto';
 import Loader from '../../components/loader/Loader';
 import ErrorMessage from '../../components/errormessage/errormessage';
 import { createProductReview } from '../../redux/reducers/product/product.actions';
@@ -29,7 +28,6 @@ const ShopPage = ({ history, match }) => {
 
   const productDetail = useSelector((state) => state.productDetail);
   const { loading, error, product } = productDetail;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -45,11 +43,12 @@ const ShopPage = ({ history, match }) => {
       setRating(0);
       setComment('');
     }
+    // console.log('i am called to get the product Details');
+    dispatch(productDetails(match.params.id));
     if (!product._id || product._id !== match.params.id) {
-      dispatch(productDetails(match.params.id));
       dispatch({ type: ProductActionTypes.PRODUCT_CREATE_REVIEW_RESET });
     }
-  }, [dispatch, match, successProductReview, product._id]);
+  }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?quantity=${quantity}`);
@@ -69,7 +68,7 @@ const ShopPage = ({ history, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorPhoto />
+        <ErrorMessage variant='danger'>{error}</ErrorMessage>
       ) : (
         <>
           <Meta title={product.name} />
